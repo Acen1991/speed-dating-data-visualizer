@@ -1,0 +1,22 @@
+{
+  "name": "speed-dating-datavis",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Acen1991/speed-dating-data-visualizer",
+  "authors": [
+    "Acen1991 <mohamedhassen-mami@hotmail.fr>"
+  ],
+  "main": "bower.json",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-material": "~0.8.1",
+    "bootstrap": "~3.3.2",
+    "d3": "~3.5.5"
+  }
+}
