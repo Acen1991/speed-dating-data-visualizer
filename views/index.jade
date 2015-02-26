@@ -10,8 +10,8 @@ html(ng-app='speed-data-app')
 		div(ng-controller="baseController", layout="column", layout-align="center", flex, layout-margin)
 			h1(layout="row", layout-align="center") Speed Dating Data Visualizer
 			h2(layout="row", layout-align="center") Under construction...
-			div(id="graph", class="aGraph", style="position:absolute;top:0px;left:0; float:left;")
-
+			div(class="aGraph", style="position:absolute;top:0px;left:0; float:left;")
+				svg(id="graph", width="1200",height="500")
 
 		<!-- injector:js -->
 		<!-- endinjector -->
