@@ -2,5 +2,6 @@
 
 This app is (being) built on top of a lot of tools that I showed interest to in the past (or even present) :
 * MEAN stack (Mongodb, Express, Angular, Node)
+* grunt
 * jade
 * D3.js
