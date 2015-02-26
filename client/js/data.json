@@ -1,18 +1,18 @@
 {
-    "common_data": {
+    "common": {
         "m_attribute": "job",
-        "f_attribute": " wage"
+        "f_attribute": " wage",
+        "m_axis_values": ["doctor", "engineer", "artist"],
+        "f_axis_values": ["1K", "2K", "3K", "4K", "5K", "6K"]
     },
-    "data": [
-	    {
-    	   "m_attribute_value": "doctor",
-	       "f_attribute_value": "15 K",
-	       "m_success_attribute": 0.7,
-	       "f_success_attribute": 0.5,
-	       "m_like_f": 0.6,
-	       "f_like_m": 0.3,
-	       "both_like": 0.5,
-	       "accuracy": 0.1
-	    }
-	]
-}
+    "data": [{
+        "m_attribute_value": "doctor",
+        "f_attribute_value": "5K",
+        "m_success_attribute": 0.7,
+        "f_success_attribute": 0.5,
+        "m_like_f": 0.6,
+        "f_like_m": 0.3,
+        "both_like": 0.5,
+        "accuracy": 0.1
+    }]
+};

@@ -13,7 +13,7 @@ var data = {
     "common": {
         "m_attribute": "job",
         "f_attribute": " wage",
-        "m_axis_values": ["doctor", "engineer", "artist"],
+        "m_axis_values": ["lawyer", "doctor", "engineer", "artist"],
         "f_axis_values": ["1K", "2K", "3K", "4K", "5K", "6K"]
     },
     "data": [{
@@ -28,10 +28,10 @@ var data = {
     }]
 };
 
-
-var y1 = d3.scale.ordinal().domain(data.common.m_axis_values).rangePoints([0, 400]);
-var y2 = d3.scale.ordinal().domain(data.common.f_axis_values).rangePoints([0, 400]);
-// var y = d3.scale.linear().domain([0, d3.max(data)]).range([h, 0]);
+var ym_range = d3.scale.ordinal().domain(data.common.m_axis_values).rangePoints([0, 400]);
+//for example to know where is the position of "engineer" on the axis we need to call ym_range.call('scale','engineer')
+yf_range = d3.scale.ordinal().domain(data.common.f_axis_values).rangePoints([0, 400]);
+//for example to know where is the position of    "2K"    on the axis we need to call yf_range.call('scale','2K')
 
 // Add an SVG element with the desired dimensions and margin.
 var graph = d3.select("#graph").append("svg:svg")
@@ -41,17 +41,17 @@ var graph = d3.select("#graph").append("svg:svg")
     .attr("transform", "translate(" + m[3] + "," + m[0] + ")");
 
 // create left yAxis
-var yAxisLeft = d3.svg.axis().scale(y1).ticks(4).orient("left");
+var ymAxis = d3.svg.axis().scale(ym_range).ticks(4).orient("left");
 // Add the y-axis to the left
 graph.append("svg:g")
     .attr("class", "y axis axisLeft")
     .attr("transform", "translate(-15,0)")
-    .call(yAxisLeft);
+    .call(ymAxis);
 
 // create right yAxis
-var yAxisRight = d3.svg.axis().scale(y2).ticks(6).orient("right");
+var yfRight = d3.svg.axis().scale(yf_range).ticks(6).orient("right");
 // Add the y-axis to the right
 graph.append("svg:g")
     .attr("class", "y axis axisRight")
     .attr("transform", "translate(" + (w + 15) + ",0)")
-    .call(yAxisRight);
+    .call(yfRight);
