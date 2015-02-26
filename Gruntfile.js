@@ -25,12 +25,13 @@ module.exports = function(grunt) {
           'views_html/index.html': ['client/bower.json'],
         },
       }
-    },
+    }
   });
 
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-injector');
-  
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+
   grunt.registerTask('default', ['jade','injector'])
 
 };
