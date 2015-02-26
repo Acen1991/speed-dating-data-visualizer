@@ -31,8 +31,6 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jade');
   grunt.loadNpmTasks('grunt-injector');
   
-  // Default task(s).
-  grunt.registerTask('jade-contrib', ['jade']);
-  grunt.registerTask('inject', ['injector']);
+  grunt.registerTask('default', ['jade','injector'])
 
 };

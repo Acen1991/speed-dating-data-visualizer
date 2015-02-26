@@ -13,10 +13,10 @@
   
   app.engine('html', require('ejs').renderFile);
   app.set('views', path.join(rootDir, 'views_html'))
-  //app.set('view engine', 'jade')
 
   app.get('/', function(req, res) {
     res.render('index.html')
   })
+  
   app.listen(3001)
 

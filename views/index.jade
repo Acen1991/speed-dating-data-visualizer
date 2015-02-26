@@ -5,14 +5,15 @@ html(ng-app='speed-data-app')
 		<!-- endinjector -->
 		
 		link(rel='stylesheet', href='css/style.css')
+	
 	body
-		div(ng-controller="baseController")
-			h1 Hello World
-			h2 welcome to my incredible project !
-		
+		div(ng-controller="baseController", layout="column", layout-align="center", flex, layout-margin)
+			h1(layout="row", layout-align="center") Speed Dating Data Visualizer
+			h2(layout="row", layout-align="center") Under construction...
+			div(id="graph", class="aGraph", style="position:absolute;top:0px;left:0; float:left;")
+
+
 		<!-- injector:js -->
 		<!-- endinjector -->
 
 		script(src='js/app.js')
-
-

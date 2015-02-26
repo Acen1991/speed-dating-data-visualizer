@@ -1,0 +1,18 @@
+{
+    "common_data": {
+        "m_attribute": "job",
+        "f_attribute": " wage"
+    },
+    "data": [
+	    {
+    	   "m_attribute_value": "doctor",
+	       "f_attribute_value": "15 K",
+	       "m_success_attribute": 0.7,
+	       "f_success_attribute": 0.5,
+	       "m_like_f": 0.6,
+	       "f_like_m": 0.3,
+	       "both_like": 0.5,
+	       "accuracy": 0.1
+	    }
+	]
+}
