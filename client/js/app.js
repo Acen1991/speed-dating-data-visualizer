@@ -7,11 +7,11 @@ d3.json("js/data.json", function(error,json){
 });
 
 var vizualize = function(speed_dating_data){
-	var m = [80, 80, 80, 80]; // margins
-	var w = 1200 - m[1] - m[3]; // width
-	var h = 500 - m[0] - m[2]; // height
+	m = [80, 80, 80, 80]; // margins
+	w = 1200 - m[1] - m[3]; // width
+	h = 500 - m[0] - m[2]; // height
 
-	var ym_range = d3.scale.ordinal().domain(speed_dating_data.attributes_data.m_axis_values).rangePoints([0, 400]);
+	ym_range = d3.scale.ordinal().domain(speed_dating_data.attributes_data.m_axis_values).rangePoints([0, 400]);
 	//for example to know where is the position of "engineer" on the axis we need to call ym_range.call('scale','engineer')
 	yf_range = d3.scale.ordinal().domain(speed_dating_data.attributes_data.f_axis_values).rangePoints([0, 400]);
 	//for example to know where is the position of    "2K"    on the axis we need to call yf_range.call('scale','2K')
@@ -49,29 +49,16 @@ var vizualize = function(speed_dating_data){
 		enter.append("g")
 			.append("polygon")
 				.attr("points",function(d,i){
+					var commonPolygonData = commonPolygonDataFunc(d);
 
-					var ymScaledPosition = ym_range.call('scale',d.m_attribute_value);
-					var yfScaledPosition = yf_range.call('scale',d.f_attribute_value);
-					var m_success_factor = d.m_success_attribute*25;
-					var f_success_factor = d.f_success_attribute*25;
-
-					var topLeftPoint = {x : -15, y : (ymScaledPosition-m_success_factor)};
-					var topRightPoint = {x : w+15 , y : (yfScaledPosition-f_success_factor)};
-					var bottomRightPoint = {x : w+15, y : (yfScaledPosition+f_success_factor)};
-					var bottomLeftPoint = {x : -15, y : (ymScaledPosition+m_success_factor)};
-
-					var topLineEquation = straightEquation(topLeftPoint.x, topLeftPoint.y, topRightPoint.x, topRightPoint.y);
-					var bottomLineEquation = straightEquation(bottomLeftPoint.x, bottomLeftPoint.y, bottomRightPoint.x, bottomRightPoint.y);
-
-					var tierTopRightPoint = {x : 0.3*(w+15),  y : topLineEquation(0.3*(w+15))};
-					var tierBottomRightPoint = {x : 0.3*(w+15), y : bottomLineEquation(0.3*(w+15))};
-
+					var thirdTopRightPoint = {x : 0.3*(w+15),  y : commonPolygonData.functions.topLineEquation(0.3*(w+15))};
+					var thirdBottomRightPoint = {x : 0.3*(w+15), y : commonPolygonData.functions.bottomLineEquation(0.3*(w+15))};
 
 					var allPoints = [];
-					allPoints.push(topLeftPoint.x +','+ topLeftPoint.y);
-					allPoints.push(tierTopRightPoint.x + ',' + tierTopRightPoint.y);
-					allPoints.push(tierBottomRightPoint.x + ',' + tierBottomRightPoint.y);
-					allPoints.push(bottomLeftPoint.x + ',' + bottomLeftPoint.y);
+					allPoints.push(commonPolygonData.borderPoints.topLeftPoint.x +','+ commonPolygonData.borderPoints.topLeftPoint.y);
+					allPoints.push(thirdTopRightPoint.x + ',' + thirdTopRightPoint.y);
+					allPoints.push(thirdBottomRightPoint.x + ',' + thirdBottomRightPoint.y);
+					allPoints.push(commonPolygonData.borderPoints.bottomLeftPoint.x + ',' + commonPolygonData.borderPoints.bottomLeftPoint.y);
 				
 					return allPoints.join(' ');
 				})
@@ -83,32 +70,20 @@ var vizualize = function(speed_dating_data){
 				.append("g")
 					.append("polygon")
 					.attr("points",function(d,i){
+						var commonPolygonData = commonPolygonDataFunc(d);
 
-						var ymScaledPosition = ym_range.call('scale',d.m_attribute_value);
-						var yfScaledPosition = yf_range.call('scale',d.f_attribute_value);
-						var m_success_factor = d.m_success_attribute*25;
-						var f_success_factor = d.f_success_attribute*25;
+						var thirdTopRightPoint = {x : 0.3*(w+15),  y : commonPolygonData.functions.topLineEquation(0.3*(w+15))};
+						var thirdBottomRightPoint = {x : 0.3*(w+15), y : commonPolygonData.functions.bottomLineEquation(0.3*(w+15))};
 
-						var topLeftPoint = {x : -15, y : (ymScaledPosition-m_success_factor)};
-						var topRightPoint = {x : w+15 , y : (yfScaledPosition-f_success_factor)};
-						var bottomRightPoint = {x : w+15, y : (yfScaledPosition+f_success_factor)};
-						var bottomLeftPoint = {x : -15, y : (ymScaledPosition+m_success_factor)};
-
-						var topLineEquation = straightEquation(topLeftPoint.x, topLeftPoint.y, topRightPoint.x, topRightPoint.y);
-						var bottomLineEquation = straightEquation(bottomLeftPoint.x, bottomLeftPoint.y, bottomRightPoint.x, bottomRightPoint.y);
-
-						var tierTopRightPoint = {x : 0.3*(w+15),  y : topLineEquation(0.3*(w+15))};
-						var tierBottomRightPoint = {x : 0.3*(w+15), y : bottomLineEquation(0.3*(w+15))};
-
-						var twoTierTopRightPoint = {x : 0.6*(w+15),  y : topLineEquation(0.6*(w+15))};
-						var twoTierBottomRightPoint = {x : 0.6*(w+15), y : bottomLineEquation(0.6*(w+15))};
+						var twoThirdTopRightPoint = {x : 0.6*(w+15),  y : commonPolygonData.functions.topLineEquation(0.6*(w+15))};
+						var twoThirdBottomRightPoint = {x : 0.6*(w+15), y : commonPolygonData.functions.bottomLineEquation(0.6*(w+15))};
 
 
 						var allPoints = [];
-						allPoints.push(tierTopRightPoint.x +','+ tierTopRightPoint.y);
-						allPoints.push(twoTierTopRightPoint.x + ',' + twoTierTopRightPoint.y);
-						allPoints.push(twoTierBottomRightPoint.x + ',' + twoTierBottomRightPoint.y);
-						allPoints.push(tierBottomRightPoint.x + ',' + tierBottomRightPoint.y);
+						allPoints.push(thirdTopRightPoint.x +','+ thirdTopRightPoint.y);
+						allPoints.push(twoThirdTopRightPoint.x + ',' + twoThirdTopRightPoint.y);
+						allPoints.push(twoThirdBottomRightPoint.x + ',' + twoThirdBottomRightPoint.y);
+						allPoints.push(thirdBottomRightPoint.x + ',' + thirdBottomRightPoint.y);
 					
 						return allPoints.join(' ');
 					})
@@ -120,35 +95,51 @@ var vizualize = function(speed_dating_data){
 				.append("g")
 					.append("polygon")
 					.attr("points",function(d,i){
+						var commonPolygonData = commonPolygonDataFunc(d);
 
-						var ymScaledPosition = ym_range.call('scale',d.m_attribute_value);
-						var yfScaledPosition = yf_range.call('scale',d.f_attribute_value);
-						var m_success_factor = d.m_success_attribute*25;
-						var f_success_factor = d.f_success_attribute*25;
-
-						var topLeftPoint = {x : -15, y : (ymScaledPosition-m_success_factor)};
-						var topRightPoint = {x : w+15 , y : (yfScaledPosition-f_success_factor)};
-						var bottomRightPoint = {x : w+15, y : (yfScaledPosition+f_success_factor)};
-						var bottomLeftPoint = {x : -15, y : (ymScaledPosition+m_success_factor)};
-
-						var topLineEquation = straightEquation(topLeftPoint.x, topLeftPoint.y, topRightPoint.x, topRightPoint.y);
-						var bottomLineEquation = straightEquation(bottomLeftPoint.x, bottomLeftPoint.y, bottomRightPoint.x, bottomRightPoint.y);
-
-						var twoTierTopRightPoint = {x : 0.6*(w+15),  y : topLineEquation(0.6*(w+15))};
-						var twoTierBottomRightPoint = {x : 0.6*(w+15), y : bottomLineEquation(0.6*(w+15))};
-
+						var twoThirdTopRightPoint = {x : 0.6*(w+15),  y : commonPolygonData.functions.topLineEquation(0.6*(w+15))};
+						var twoThirdBottomRightPoint = {x : 0.6*(w+15), y : commonPolygonData.functions.bottomLineEquation(0.6*(w+15))};
 
 						var allPoints = [];
-						allPoints.push(twoTierTopRightPoint.x +','+ twoTierTopRightPoint.y);
-						allPoints.push(bottomRightPoint.x + ',' + bottomRightPoint.y);
-						allPoints.push(twoTierBottomRightPoint.x + ',' + twoTierBottomRightPoint.y);
-						allPoints.push(twoTierBottomRightPoint.x + ',' + twoTierBottomRightPoint.y);
+						allPoints.push(twoThirdTopRightPoint.x +','+ twoThirdTopRightPoint.y);
+						allPoints.push(commonPolygonData.borderPoints.topRightPoint.x + ',' + commonPolygonData.borderPoints.topRightPoint.y);
+						allPoints.push(commonPolygonData.borderPoints.bottomRightPoint.x + ',' + commonPolygonData.borderPoints.bottomRightPoint.y);
+						allPoints.push(twoThirdBottomRightPoint.x + ',' + twoThirdBottomRightPoint.y);
 					
 						return allPoints.join(' ');
 					})
 					.attr("style",function(d){
 						return commonStyleFunction(d, d.f_like_m);
 					});
+};
+
+var commonPolygonDataFunc = function(d){
+	var ymScaledPosition = ym_range.call('scale',d.m_attribute_value);
+	
+	var yfScaledPosition = yf_range.call('scale',d.f_attribute_value);
+	var m_success_factor = d.m_success_attribute*25;
+	var f_success_factor = d.f_success_attribute*25;
+
+	var topLeftPoint = {x : -15, y : (ymScaledPosition-m_success_factor)};
+	var topRightPoint = {x : w+15 , y : (yfScaledPosition-f_success_factor)};
+	var bottomRightPoint = {x : w+15, y : (yfScaledPosition+f_success_factor)};
+	var bottomLeftPoint = {x : -15, y : (ymScaledPosition+m_success_factor)};
+
+	var topLineEquation = straightEquation(topLeftPoint.x, topLeftPoint.y, topRightPoint.x, topRightPoint.y);
+	var bottomLineEquation = straightEquation(bottomLeftPoint.x, bottomLeftPoint.y, bottomRightPoint.x, bottomRightPoint.y);
+
+	return {
+		borderPoints : {
+			topLeftPoint : topLeftPoint,
+			topRightPoint: topRightPoint,
+			bottomRightPoint : bottomRightPoint,
+			bottomLeftPoint : bottomLeftPoint
+		}, 
+		functions :{
+			topLineEquation : topLineEquation,
+			bottomLineEquation : bottomLineEquation
+		}
+	};
 };
 
 var straightEquation = function(x1,y1,x2,y2){
