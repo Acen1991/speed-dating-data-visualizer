@@ -3,9 +3,9 @@
   "version": "0.0.0",
   "homepage": "https://github.com/Acen1991/speed-dating-data-visualizer",
   "authors": [
-    "Acen1991 <mohamedhassen-mami@hotmail.fr>"
+    "Acen1991 <mohamedhassen.mami@gmail.com>"
   ],
-  "main": "bower.json",
+  "main": "js/app.js",
   "license": "MIT",
   "ignore": [
     "**/.*",
