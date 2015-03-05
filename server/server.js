@@ -3,6 +3,8 @@
   var app = express();
   bodyParser = require('body-parser');
 
+  app.set('port', (process.env.PORT || 5000));
+
   var rootDir = __dirname + '/../';
   var clientbuild = rootDir + 'client';
 
