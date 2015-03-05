@@ -46,7 +46,7 @@ angular.module("speed-data-app", []).controller("baseController", ['$scope', fun
                 }
             }).enter();
 
-        var polygonContainer = enter.append("g");
+        var polygonContainer = enter.append("g").attr("id","polygonContainer");
 
         polygonContainer.append("polygon")
             .attr("points", function(d, i) {
@@ -134,7 +134,7 @@ angular.module("speed-data-app", []).controller("baseController", ['$scope', fun
                 return commonStyleFunction(d, d.f_like_m);
             });
 
-        graph
+        polygonContainer
             .selectAll("polygon")
             .on("mouseover", function(d) {
                 var polygons = graph.selectAll("polygon"); 
@@ -144,7 +144,7 @@ angular.module("speed-data-app", []).controller("baseController", ['$scope', fun
                     else return 1;
                 });
 
-                /*** ***/
+                /*** THIS IS BUGGED ***/
                 polygons.filter(function(data, i){
                 	if(data.couple_id != d.couple_id) return i;
                 	else return null;
@@ -155,6 +155,10 @@ angular.module("speed-data-app", []).controller("baseController", ['$scope', fun
                 	else return null;
                 })
                 .attr('opacity', 1);
+                /*** END BUGGED ***/
+
+                polygonContainer
+
 
             })
             .on("mouseleave", function(d) {
@@ -167,17 +171,6 @@ angular.module("speed-data-app", []).controller("baseController", ['$scope', fun
                 });
 				*/
             });
-
-			/* //@TODO
-            var textLabels = text
-	            .attr("x", function(data) { return data.cx; })
-    	        .attr("y", function(data) { return data.cy; })
-        		.text( function (data) { return "( " + data.cx + ", " + data.cy +" )"; })
-            	.attr("font-family", "sans-serif")
-        		.attr("font-size", "20px")
-        		.attr("fill", "red");
-
-        		*/
     };
 
     var commonPolygonDataFunc = function(d) {
