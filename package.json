@@ -1,7 +1,7 @@
 {
   "name": "speed-dating-datavis",
   "version": "0.0.0",
-  "description": "",
+  "description": "this app provides a vizualisation of data from a speed dating experience",
   "main": "server/server.js",
   "scripts": {
     "start": "node server/server.js"
