@@ -35,7 +35,7 @@ module.exports = function(grunt) {
         }
      }, 
      js : {
-        files : ['Gruntfile.js', 'client/js/*.js', 'server/*.js'],
+        files : ['Gruntfile.js', 'client/js/*.js', '!client/js/*.min.js', 'server/*.js'],
         tasks : ['jshint'],
         options : {
           spaws : false
@@ -43,8 +43,18 @@ module.exports = function(grunt) {
      }
     },
     jshint: {
-      all: ['Gruntfile.js', 'client/js/*.js', 'server/*.js']
-    }
+      all: ['Gruntfile.js', 'client/js/*.js', '!client/js/*.min.js', 'server/*.js']
+    },
+      uglify: {
+        options: {
+          mangle: false
+        },
+        my_target: {
+          files: {
+            'client/js/app.min.js': ['client/js/app.js']
+          }
+        }
+      }
   });
 
   grunt.loadNpmTasks('grunt-contrib-jade');
@@ -52,6 +62,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('default', ['jade','injector','jshint']);
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+
+  grunt.registerTask('default', ['jade','injector','jshint', 'uglify']);
 
 };
