@@ -63,7 +63,7 @@ var vizualize = function(speed_dating_data){
 					var topLineEquation = straightEquation(topLeftPoint.x, topLeftPoint.y, topRightPoint.x, topRightPoint.y);
 					var bottomLineEquation = straightEquation(bottomLeftPoint.x, bottomLeftPoint.y, bottomRightPoint.x, bottomRightPoint.y);
 
-					var tierTopRightPoint = {x : 0.3*(w+15),  y : topLineEquation(0.3*w+15)};
+					var tierTopRightPoint = {x : 0.3*(w+15),  y : topLineEquation(0.3*(w+15))};
 					var tierBottomRightPoint = {x : 0.3*(w+15), y : bottomLineEquation(0.3*(w+15))};
 
 
