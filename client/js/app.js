@@ -1,10 +1,6 @@
 angular.module("speed-data-app", []).controller("baseController", ['$scope', function($scope) {}]);
 
-/* implementation heavily influenced by http://bl.ocks.org/1166403 */
-/* some arguments AGAINST the use of dual-scaled axes line graphs can be found at http://www.perceptualedge.com/articles/visual_business_intelligence/dual-scaled_axes.pdf */
-
-// define dimensions of graph
-
+(function(){
 d3.json("js/data.json", function(error,json){
 	 if (error) return console.warn(error);
   	 vizualize(json);
@@ -175,6 +171,7 @@ var commonStyleFunction = function(d, factor){
 	return styles.join(";");
 };
 
+//@TODO : Provide a better fill function
 var fillFunction = function(factor){
 	var fill;
 	
@@ -188,3 +185,4 @@ var fillFunction = function(factor){
 
 	return fill;
 };
+})();
