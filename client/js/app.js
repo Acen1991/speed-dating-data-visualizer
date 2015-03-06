@@ -226,7 +226,7 @@ angular.module("speed-data-app", []).controller("baseController", ['$scope', fun
 
     var commonStyleFunction = function(d, factor) {
         var strokeWidth = "stroke-width:1";
-        var stroke = "stroke:purple";
+        var stroke = "stroke:rgb(10,10,60)";
 
         var styles = [];
         styles.push(fillFunction(factor));

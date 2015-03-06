@@ -1,4 +1,12 @@
-		/* tell the SVG path to be a thin blue line without any area fill */
+			html,body{
+				background-color : rgb(10, 10, 60);
+			}		
+
+			h1,h2{
+				color: white;
+			}
+
+			/* tell the SVG path to be a thin blue line without any area fill */
 			#graph {
 				margin-top:-50px;
 			}
