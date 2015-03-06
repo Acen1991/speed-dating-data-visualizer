@@ -145,24 +145,26 @@ angular.module("speed-data-app", []).controller("baseController", ['$scope', fun
                 });
 
                 /*** THIS IS BUGGED ***/
-                polygons.filter(function(data, i){
-                	if(data.couple_id != d.couple_id) return i;
-                	else return null;
-                })
-                .attr('opacity', 0.3);
-                polygons.filter(function(data, i){
-                	if(data.couple_id == d.couple_id) return i;
-                	else return null;
-                })
-                .attr('opacity', 1);
+                polygons
+                    .filter(function(data, i){
+                    	if(data.couple_id != d.couple_id) return i;
+                    	else return null;
+                    })
+                    .attr('opacity', 0.3);
+                
+                polygons
+                    .filter(function(data, i){
+                    	if(data.couple_id == d.couple_id) return i;
+                    	else return null;
+                    })
+                    .attr('opacity', 1);
                 /*** END BUGGED ***/
-
-                polygonContainer
 
 
             })
             .on("mouseleave", function(d) {
                 var polygons = graph.selectAll("polygon"); 
+                
                 polygons.attr('opacity', 1);
                 /*
                 polygons.filter(function(data, i){
