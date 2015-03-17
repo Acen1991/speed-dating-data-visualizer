@@ -12,6 +12,19 @@ html(ng-app='speed-data-app')
 			h2(layout="row", layout-align="center") Under construction...
 			div(class="aGraph", style="margin:auto;")
 				svg(id="graph", width="1200",height="500")
+			div(layout="row", style="margin:auto;")
+				div(layout="column",layout-align="center center",style="height: 100px;margin-right: 800px;")
+					md-select(ng-model="mAttribute",style="min-width: 200px;")
+						md-select-label(class="_select_text")
+							{{ mAttribute ? mAttribute.name : 'Please choose an attribute for men' }}
+						md-option(ng-value="attribute",ng-repeat="attribute in attributes")
+							{{ attribute.name }}
+				div(layout="column",layout-align="center center",style="height: 100px;")
+					md-select(ng-model="wAttribute", style="min-width: 200px;")
+						md-select-label(class="_select_text")
+							{{ wAttribute ? wAttribute.name : 'Please choose an attribute for women' }}
+						md-option(ng-value="attribute",ng-repeat="attribute in attributes")
+							{{ attribute.name }}
 
 		<!-- injector:js -->
 		<!-- endinjector -->

@@ -1,11 +1,36 @@
 angular
-    .module("speed-data-app", [])
+    .module("speed-data-app", ['ngMaterial'])
     .controller("baseController", ['$scope', 'vizualizeD3', '$http', function($scope, vizualizeD3, $http) {
+        $scope.update = function(){
+            console.log($scope.mAttribute);
+        };
 
-        $http.get('js/data.json')
-        .success(function(data, status, headers, config){
-            vizualizeD3(data);
+        $scope
+            .$watch('mAttribute', function(newValue, oldValue){
+            changeAttributeFunc(newValue, oldValue);
         });
+
+        $scope
+            .$watch('wAttribute', function(newValue, oldValue){
+            changeAttributeFunc(newValue, oldValue);
+        });
+
+        var changeAttributeFunc = function(newValue, oldValue){
+            if(newValue != oldValue && $scope.mAttribute !== undefined && $scope.wAttribute !== undefined){
+                $http.get('js/data_'+$scope.mAttribute.name+'_'+$scope.wAttribute.name+'.json')
+                .success(function(data, status, headers, config){
+                    d3.select("#graph g").remove();
+                    vizualizeD3(data);
+                });
+            }
+        };
+
+        $scope.attributes = [
+            { id: 1, name: 'job' },
+            { id: 2, name: 'wage' },
+            { id: 3, name: 'intelligence' },
+            { id: 4, name: 'hobbies' },
+       ];
     }])
     .factory('vizualizeD3', [function(){
         var commonPolygonDataFunc = function(d) {

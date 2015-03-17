@@ -14,6 +14,20 @@
       <div style="margin:auto;" class="aGraph">
         <svg id="graph" width="1200" height="500"></svg>
       </div>
+      <div layout="row" style="margin:auto;">
+        <div layout="column" layout-align="center center" style="height: 100px;margin-right: 800px;">
+          <md-select ng-model="mAttribute" style="min-width: 200px;">
+            <md-select-label class="_select_text">{{ mAttribute ? mAttribute.name : 'Please choose an attribute for men' }}</md-select-label>
+            <md-option ng-value="attribute" ng-repeat="attribute in attributes">{{ attribute.name }}</md-option>
+          </md-select>
+        </div>
+        <div layout="column" layout-align="center center" style="height: 100px;">
+          <md-select ng-model="wAttribute" style="min-width: 200px;">
+            <md-select-label class="_select_text">{{ wAttribute ? wAttribute.name : 'Please choose an attribute for women' }}</md-select-label>
+            <md-option ng-value="attribute" ng-repeat="attribute in attributes">{{ attribute.name }}</md-option>
+          </md-select>
+        </div>
+      </div>
     </div><!-- injector:js -->
 <script src="/bower_components/jquery/dist/jquery.js"></script>
 <script src="/bower_components/angular/angular.js"></script>

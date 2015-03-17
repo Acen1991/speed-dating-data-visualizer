@@ -60,3 +60,13 @@
 			.y.axisLeft text {
 				fill: steelblue;
 			}
+
+			md-select.md-default-theme .md-select-label.md-placeholder, md-select.md-default-theme .md-select-label {
+				color : white !important;
+			}
+
+			md-select.md-default-theme .md-select-label.md-placeholder {
+				border-bottom-color: white !important;
+			}
+
+			body
