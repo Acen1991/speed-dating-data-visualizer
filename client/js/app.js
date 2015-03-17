@@ -1,10 +1,10 @@
 angular
     .module("speed-data-app", [])
-    .controller("baseController", ['$scope', 'vizualizeD3', function($scope, vizualizeD3) {
+    .controller("baseController", ['$scope', 'vizualizeD3', '$http', function($scope, vizualizeD3, $http) {
 
-        d3.json("js/data.json", function(error, json) {
-            if (error) return console.warn(error);
-            vizualizeD3(json);
+        $http.get('js/data.json')
+        .success(function(data, status, headers, config){
+            vizualizeD3(data);
         });
     }])
     .factory('vizualizeD3', [function(){
@@ -254,8 +254,3 @@ angular
         };
         }
     ]);
-/*
-(function() {
-    
-})();
-*/
