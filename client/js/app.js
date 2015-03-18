@@ -1,10 +1,6 @@
 angular
     .module("speed-data-app", ['ngMaterial'])
     .controller("baseController", ['$scope', 'vizualizeD3', '$http', function($scope, vizualizeD3, $http) {
-        $scope.update = function(){
-            console.log($scope.mAttribute);
-        };
-
         $scope
             .$watch('mAttribute', function(newValue, oldValue){
             changeAttributeFunc(newValue, oldValue);
