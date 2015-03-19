@@ -11,9 +11,6 @@
     <div ng-controller="baseController" layout="column" layout-align="center" flex layout-margin>
       <h1 layout="row" layout-align="center">Speed Dating Data Visualizer</h1>
       <h2 layout="row" layout-align="center">Under construction...</h2>
-      <div style="margin:auto;" class="aGraph">
-        <svg id="graph" width="1200" height="500"></svg>
-      </div>
       <div layout="row" style="margin:auto;">
         <div layout="column" layout-align="center center" style="height: 100px;margin-right: 800px;">
           <md-select ng-model="mAttribute" style="min-width: 200px;">
@@ -27,6 +24,9 @@
             <md-option ng-value="attribute" ng-repeat="attribute in attributes">{{ attribute.name }}</md-option>
           </md-select>
         </div>
+      </div>
+      <div style="margin:auto;" class="aGraph">
+        <svg id="graph" width="1200" height="500"></svg>
       </div>
     </div><!-- injector:js -->
 <script src="/bower_components/jquery/dist/jquery.js"></script>
