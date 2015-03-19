@@ -24,8 +24,6 @@ angular
         $scope.attributes = [
             { id: 1, name: 'job' },
             { id: 2, name: 'wage' },
-            { id: 3, name: 'intelligence' },
-            { id: 4, name: 'hobbies' },
        ];
     }])
     .factory('vizualizeD3', [function(){
