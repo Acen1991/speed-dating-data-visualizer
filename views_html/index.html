@@ -14,14 +14,14 @@
       <div layout="row" style="margin:auto;">
         <div layout="column" layout-align="center center" style="height: 100px;margin-right: 800px;">
           <md-select ng-model="mAttribute" style="min-width: 200px;">
-            <md-select-label class="_select_text">{{ mAttribute ? mAttribute.name : 'Please choose an attribute for men' }}</md-select-label>
-            <md-option ng-value="attribute" ng-repeat="attribute in attributes">{{ attribute.name }}</md-option>
+            <md-select-label class="_select_text">{{ mAttribute ? mAttribute.human_readable_attribute_name : 'Please choose an attribute for men' }}</md-select-label>
+            <md-option ng-value="attribute" ng-repeat="attribute in attributes | orderBy:'-human_readable_attribute_name'">{{ attribute.human_readable_attribute_name }}</md-option>
           </md-select>
         </div>
         <div layout="column" layout-align="center center" style="height: 100px;">
           <md-select ng-model="wAttribute" style="min-width: 200px;">
-            <md-select-label class="_select_text">{{ wAttribute ? wAttribute.name : 'Please choose an attribute for women' }}</md-select-label>
-            <md-option ng-value="attribute" ng-repeat="attribute in attributes">{{ attribute.name }}</md-option>
+            <md-select-label class="_select_text">{{ wAttribute ? wAttribute.human_readable_attribute_name : 'Please choose an attribute for women' }}</md-select-label>
+            <md-option ng-value="attribute" ng-repeat="attribute in attributes | orderBy:'-human_readable_attribute_name'">{{ attribute.human_readable_attribute_name }}</md-option>
           </md-select>
         </div>
       </div>

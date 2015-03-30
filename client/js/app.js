@@ -13,7 +13,7 @@ angular
 
         var changeAttributeFunc = function(newValue, oldValue){
             if(newValue != oldValue && $scope.mAttribute !== undefined && $scope.wAttribute !== undefined){
-                $http.get('js/data_'+$scope.mAttribute.name+'_'+$scope.wAttribute.name+'.json')
+                $http.get('data/'+$scope.mAttribute.normalized_attribute_name+'_'+$scope.wAttribute.normalized_attribute_name+'.json')
                 .success(function(data, status, headers, config){
                     d3.select("#graph g").remove();
                     vizualizeD3(data);
@@ -21,10 +21,10 @@ angular
             }
         };
 
-        $scope.attributes = [
-            { id: 1, name: 'job' },
-            { id: 2, name: 'wage' },
-       ];
+       $http.get('data/attributes.json')
+        .success(function(data, status, headers, config){
+            $scope.attributes = data;
+        });
     }])
     .factory('vizualizeD3', [function(){
         var commonPolygonDataFunc = function(d) {
