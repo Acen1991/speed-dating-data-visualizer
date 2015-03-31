@@ -24,7 +24,7 @@ html(ng-app='speed-data-app')
 						md-option(ng-value="attribute",ng-repeat="attribute in attributes | orderBy:'-human_readable_attribute_name'")
 							{{ attribute.human_readable_attribute_name }}
 			div(class="aGraph", style="margin:auto;")
-				svg(id="graph", width="1200",height="500")
+				svg(id="graph", width="1200",height="5000")
 		<!-- injector:js -->
 		<!-- endinjector -->
 

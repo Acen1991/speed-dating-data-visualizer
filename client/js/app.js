@@ -35,19 +35,19 @@ angular
             var f_success_factor = d.f_success_attribute * 25;
 
             var topLeftPoint = {
-                x: -15,
+                x: leftSide,
                 y: (ymScaledPosition - m_success_factor)
             };
             var topRightPoint = {
-                x: w + 15,
+                x: rightSide,
                 y: (yfScaledPosition - f_success_factor)
             };
             var bottomRightPoint = {
-                x: w + 15,
+                x: rightSide,
                 y: (yfScaledPosition + f_success_factor)
             };
             var bottomLeftPoint = {
-                x: -15,
+                x: leftSide,
                 y: (ymScaledPosition + m_success_factor)
             };
 
@@ -78,7 +78,7 @@ angular
 
         var commonStyleFunction = function(d, factor) {
             var strokeWidth = "stroke-width:1";
-            var stroke = "stroke:rgb(10,10,60)";
+            var stroke = "stroke:rgb(10,1(2/3)0)";
 
             var styles = [];
             styles.push(fillFunction(factor));
@@ -92,9 +92,9 @@ angular
         var fillFunction = function(factor) {
             var fill;
 
-            if (factor >= 0.6) {
+            if (factor >= (2/3)) {
                 fill = "fill:rgb(0," + Math.round(factor * 255) + ",0)";
-            } else if (factor > 0.3 && factor < 0.6) {
+            } else if (factor > (1/3) && factor < (2/3)) {
                 fill = "fill:rgb(0," + Math.round(factor * 255) + ",0)";
             } else {
                 fill = "fill:rgb(" + Math.round((1 - factor)) * 255 + ",0,0)";
@@ -105,12 +105,17 @@ angular
 
         return function(speed_dating_data){
             m = [80, 80, 80, 80]; // margins
-            w = 1200 - m[1] - m[3]; // width
+            w = 1100 - m[1] - m[3]; // width
             h = 500 - m[0] - m[2]; // height
 
-            ym_range = d3.scale.ordinal().domain(speed_dating_data.attributes_data.m_axis_values).rangePoints([0, 400]);
+            leftSide = 75;
+            rightSide = w-15;
+
+            var maxNumberOfValues = d3.max([speed_dating_data.attributes_data.m_axis_values.length,speed_dating_data.attributes_data.f_axis_values.length]);
+
+            ym_range = d3.scale.ordinal().domain(speed_dating_data.attributes_data.m_axis_values).rangePoints([0, maxNumberOfValues*100]);
             //for example to know where is the position of "engineer" on the axis we need to call ym_range.call('scale','engineer')
-            yf_range = d3.scale.ordinal().domain(speed_dating_data.attributes_data.f_axis_values).rangePoints([0, 400]);
+            yf_range = d3.scale.ordinal().domain(speed_dating_data.attributes_data.f_axis_values).rangePoints([0, maxNumberOfValues*100]);
             //for example to know where is the position of    "2K"    on the axis we need to call yf_range.call('scale','2K')
 
             // Add an SVG element with the desired dimensions and margin.
@@ -123,7 +128,7 @@ angular
             // Add the y-axis to the left
             graph.append("g")
                 .attr("class", "y axis axisLeft")
-                .attr("transform", "translate(-15,0)")
+                .attr("transform", "translate("+leftSide+",0)")
                 .call(ymAxis);
 
             // create right yAxis
@@ -131,7 +136,7 @@ angular
             // Add the y-axis to the right
             graph.append("g")
                 .attr("class", "y axis axisRight")
-                .attr("transform", "translate(" + (w + 15) + ",0)")
+                .attr("transform", "translate(" + rightSide + ",0)")
                 .call(yfAxis);
 
             var enter = graph.selectAll("g")
@@ -150,12 +155,12 @@ angular
                     var commonPolygonData = commonPolygonDataFunc(d);
 
                     var thirdTopRightPoint = {
-                        x: 0.3 * (w + 15),
-                        y: commonPolygonData.functions.topLineEquation(0.3 * (w + 15))
+                        x: (1/3) * rightSide,
+                        y: commonPolygonData.functions.topLineEquation((1/3) * rightSide)
                     };
                     var thirdBottomRightPoint = {
-                        x: 0.3 * (w + 15),
-                        y: commonPolygonData.functions.bottomLineEquation(0.3 * (w + 15))
+                        x: (1/3) * rightSide,
+                        y: commonPolygonData.functions.bottomLineEquation((1/3) * rightSide)
                     };
 
                     var allPoints = [];
@@ -176,21 +181,21 @@ angular
                     var commonPolygonData = commonPolygonDataFunc(d);
 
                     var thirdTopRightPoint = {
-                        x: 0.3 * (w + 15),
-                        y: commonPolygonData.functions.topLineEquation(0.3 * (w + 15))
+                        x: (1/3) * rightSide,
+                        y: commonPolygonData.functions.topLineEquation((1/3) * rightSide)
                     };
                     var thirdBottomRightPoint = {
-                        x: 0.3 * (w + 15),
-                        y: commonPolygonData.functions.bottomLineEquation(0.3 * (w + 15))
+                        x: (1/3) * rightSide,
+                        y: commonPolygonData.functions.bottomLineEquation((1/3) * rightSide)
                     };
 
                     var twoThirdTopRightPoint = {
-                        x: 0.6 * (w + 15),
-                        y: commonPolygonData.functions.topLineEquation(0.6 * (w + 15))
+                        x: (2/3) * rightSide,
+                        y: commonPolygonData.functions.topLineEquation((2/3) * rightSide)
                     };
                     var twoThirdBottomRightPoint = {
-                        x: 0.6 * (w + 15),
-                        y: commonPolygonData.functions.bottomLineEquation(0.6 * (w + 15))
+                        x: (2/3) * rightSide,
+                        y: commonPolygonData.functions.bottomLineEquation((2/3) * rightSide)
                     };
 
                     var allPoints = [];
@@ -211,12 +216,12 @@ angular
                     var commonPolygonData = commonPolygonDataFunc(d);
 
                     var twoThirdTopRightPoint = {
-                        x: 0.6 * (w + 15),
-                        y: commonPolygonData.functions.topLineEquation(0.6 * (w + 15))
+                        x: (2/3) * rightSide,
+                        y: commonPolygonData.functions.topLineEquation((2/3) * rightSide)
                     };
                     var twoThirdBottomRightPoint = {
-                        x: 0.6 * (w + 15),
-                        y: commonPolygonData.functions.bottomLineEquation(0.6 * (w + 15))
+                        x: (2/3) * rightSide,
+                        y: commonPolygonData.functions.bottomLineEquation((2/3) * rightSide)
                     };
 
                     var allPoints = [];
@@ -247,7 +252,7 @@ angular
                             if(data.couple_id != d.couple_id) return i;
                             else return null;
                         })
-                        .attr('opacity', 0.3);
+                        .attr('opacity', (1/3));
                     
                     polygons
                         .filter(function(data, i){
