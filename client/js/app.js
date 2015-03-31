@@ -113,7 +113,7 @@ angular
 
             var maxNumberOfValues = d3.max([speed_dating_data.attributes_data.m_axis_values.length,speed_dating_data.attributes_data.f_axis_values.length]);
 
-            angular.element("#graph").attr("height",maxNumberOfValues*100+10);
+            angular.element("#graph").attr("height",maxNumberOfValues*100+100);
             ym_range = d3.scale.ordinal().domain(speed_dating_data.attributes_data.m_axis_values).rangePoints([0, maxNumberOfValues*100]);
             //for example to know where is the position of "engineer" on the axis we need to call ym_range.call('scale','engineer')
             yf_range = d3.scale.ordinal().domain(speed_dating_data.attributes_data.f_axis_values).rangePoints([0, maxNumberOfValues*100]);
