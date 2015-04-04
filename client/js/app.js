@@ -151,7 +151,8 @@ angular
 
             var polygonContainer = enter.append("g").attr("id","polygonContainer");
 
-            polygonContainer.append("polygon")
+            polygonContainer
+                .append("polygon")
                 .attr("points", function(d, i) {
                     var commonPolygonData = commonPolygonDataFunc(d);
 
