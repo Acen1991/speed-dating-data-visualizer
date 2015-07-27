@@ -15,6 +15,6 @@ Briefly, hundreds of men and women in Columbia University have been invited to p
 
 ====TODAY====
 =
-I am currently porting the UI to a NodeJs-Angular-D3 webapp for ease of use and for sharing the stuff we made with the world ;) here
+I am currently porting the UI to a NodeJs-Angular-D3 webapp for ease of use on my own (as I grown-up) and for sharing the stuff we made with the world ;) here
 
 Simply put, after the whole refactoring stuff, this java app processes data from a csv file to produce a set of a JSON files (see example here) so that the Webapp could use it easily.
