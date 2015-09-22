@@ -1,4 +1,4 @@
-angular.module("speed-data-app").factory('vizualizeD3', ['Utils', function(Utils) {
+angular.module("speed-data-app").factory('Vizualize', ['Utils', function(Utils) {
     return function(speed_dating_data) {
         var m = [80, 80, 80, 80]; // margins
         var w = 1100 - m[1] - m[3]; // width
