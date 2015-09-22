@@ -58,7 +58,7 @@ module.exports = function(grunt) {
             },
             my_target: {
                 files: {
-                    'client/js/app.min.js': ['client/js/app.js']
+                    'client/js/app.min.js': ['client/js/*.bootstraper.js', 'client/js/*.js']
                 }
             }
         }
