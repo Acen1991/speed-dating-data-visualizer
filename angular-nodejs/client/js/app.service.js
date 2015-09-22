@@ -1,18 +1,18 @@
 angular.module("speed-data-app").factory('vizualizeD3', ['Utils', function(Utils) {
     return function(speed_dating_data) {
-        m = [80, 80, 80, 80]; // margins
-        w = 1100 - m[1] - m[3]; // width
-        h = 500 - m[0] - m[2]; // height
+        var m = [80, 80, 80, 80]; // margins
+        var w = 1100 - m[1] - m[3]; // width
+        var h = 500 - m[0] - m[2]; // height
 
-        leftSide = 75;
-        rightSide = w - 15;
+        var leftSide = 75;
+        var rightSide = w - 15;
 
         var maxNumberOfValues = d3.max([speed_dating_data.attributes_data.m_axis_values.length, speed_dating_data.attributes_data.f_axis_values.length]);
 
         angular.element("#graph").attr("height", maxNumberOfValues * 100 + 100);
-        ym_range = d3.scale.ordinal().domain(speed_dating_data.attributes_data.m_axis_values).rangePoints([0, maxNumberOfValues * 100]);
+        var ym_range = d3.scale.ordinal().domain(speed_dating_data.attributes_data.m_axis_values).rangePoints([0, maxNumberOfValues * 100]);
         //for example to know where is the position of "engineer" on the axis we need to call ym_range.call('scale','engineer')
-        yf_range = d3.scale.ordinal().domain(speed_dating_data.attributes_data.f_axis_values).rangePoints([0, maxNumberOfValues * 100]);
+        var yf_range = d3.scale.ordinal().domain(speed_dating_data.attributes_data.f_axis_values).rangePoints([0, maxNumberOfValues * 100]);
         //for example to know where is the position of    "2K"    on the axis we need to call yf_range.call('scale','2K')
 
         // Add an SVG element with the desired dimensions and margin.
@@ -37,7 +37,7 @@ angular.module("speed-data-app").factory('vizualizeD3', ['Utils', function(Utils
             .call(yfAxis);
 
         var enter = graph.selectAll("g")
-            .data(speed_dating_data.values, function(d, i) {
+            .data(speed_dating_data.values, function(d) {
                 if (typeof d == "object") {
                     return d.couple_id;
                 } else {
@@ -49,8 +49,8 @@ angular.module("speed-data-app").factory('vizualizeD3', ['Utils', function(Utils
 
         polygonContainer
             .append("polygon")
-            .attr("points", function(d, i) {
-                var commonPolygonData = Utils.commonPolygonDataFunc(d);
+            .attr("points", function(d) {
+                var commonPolygonData = Utils.commonPolygonDataFunc(d, ym_range, yf_range, leftSide, rightSide);
 
                 var thirdTopRightPoint = {
                     x: (1 / 3) * rightSide,
@@ -75,8 +75,8 @@ angular.module("speed-data-app").factory('vizualizeD3', ['Utils', function(Utils
 
         polygonContainer
             .append("polygon")
-            .attr("points", function(d, i) {
-                var commonPolygonData = Utils.commonPolygonDataFunc(d);
+            .attr("points", function(d) {
+                var commonPolygonData = Utils.commonPolygonDataFunc(d, ym_range, yf_range, leftSide, rightSide);
 
                 var thirdTopRightPoint = {
                     x: (1 / 3) * rightSide,
@@ -110,9 +110,8 @@ angular.module("speed-data-app").factory('vizualizeD3', ['Utils', function(Utils
 
         polygonContainer
             .append("polygon")
-            .attr("points", function(d, i) {
-                var commonPolygonData = Utils.commonPolygonDataFunc(d);
-
+            .attr("points", function(d) {
+                var commonPolygonData = Utils.commonPolygonDataFunc(d, ym_range, yf_range, leftSide, rightSide);
                 var twoThirdTopRightPoint = {
                     x: (2 / 3) * rightSide,
                     y: commonPolygonData.functions.topLineEquation((2 / 3) * rightSide)
@@ -162,7 +161,7 @@ angular.module("speed-data-app").factory('vizualizeD3', ['Utils', function(Utils
 
 
             })
-            .on("mouseleave", function(d) {
+            .on("mouseleave", function() {
                 var polygons = graph.selectAll("polygon");
 
                 polygons.attr('opacity', 1);
@@ -175,91 +174,3 @@ angular.module("speed-data-app").factory('vizualizeD3', ['Utils', function(Utils
             });
     };
 }]);
-
-
-
-
-angular.module('speed-data-app').factory('Utils', [function() {
-    var commonPolygonDataFunc = function(d) {
-        var ymScaledPosition = ym_range.call('scale', d.m_attribute_value);
-
-        var yfScaledPosition = yf_range.call('scale', d.f_attribute_value);
-        var m_success_factor = d.m_success_attribute * 25;
-        var f_success_factor = d.f_success_attribute * 25;
-
-        var topLeftPoint = {
-            x: leftSide,
-            y: (ymScaledPosition - m_success_factor)
-        };
-        var topRightPoint = {
-            x: rightSide,
-            y: (yfScaledPosition - f_success_factor)
-        };
-        var bottomRightPoint = {
-            x: rightSide,
-            y: (yfScaledPosition + f_success_factor)
-        };
-        var bottomLeftPoint = {
-            x: leftSide,
-            y: (ymScaledPosition + m_success_factor)
-        };
-
-        var topLineEquation = Utils.straightEquation(topLeftPoint.x, topLeftPoint.y, topRightPoint.x, topRightPoint.y);
-        var bottomLineEquation = Utils.straightEquation(bottomLeftPoint.x, bottomLeftPoint.y, bottomRightPoint.x, bottomRightPoint.y);
-
-        return {
-            borderPoints: {
-                topLeftPoint: topLeftPoint,
-                topRightPoint: topRightPoint,
-                bottomRightPoint: bottomRightPoint,
-                bottomLeftPoint: bottomLeftPoint
-            },
-            functions: {
-                topLineEquation: topLineEquation,
-                bottomLineEquation: bottomLineEquation
-            }
-        };
-    };
-
-    var straightEquation = function(x1, y1, x2, y2) {
-        var a = (y2 - y1) / (x2 - x1);
-        var b = y2 - a * x2;
-        return function(x) {
-            return a * x + b;
-        };
-    };
-
-    var commonStyleFunction = function(d, factor) {
-        var strokeWidth = "stroke-width:1";
-        var stroke = "stroke:rgb(10,1(2/3)0)";
-
-        var styles = [];
-        styles.push(fillFunction(factor));
-        styles.push(strokeWidth);
-        styles.push(stroke);
-
-        return styles.join(";");
-    };
-
-    //@TODO : Provide a better fill function
-    var fillFunction = function(factor) {
-        var fill;
-
-        if (factor >= (2 / 3)) {
-            fill = "fill:rgb(0," + Math.round(factor * 255) + ",0)";
-        } else if (factor > (1 / 3) && factor < (2 / 3)) {
-            fill = "fill:rgb(0," + Math.round(factor * 255) + ",0)";
-        } else {
-            fill = "fill:rgb(" + Math.round((1 - factor)) * 255 + ",0,0)";
-        }
-
-        return fill;
-    };
-    
-    return {
-            commonPolygonDataFunc : commonPolygonDataFunc,
-            straightEquation : straightEquation,
-            commonStyleFunction : commonStyleFunction,
-            fillFunction : fillFunction
-    }
-}])
