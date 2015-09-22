@@ -60,7 +60,7 @@ angular.module('speed-data-app').factory('Utils', [function() {
         return styles.join(";");
     };
 
-    //@TODO : Provide a better fill function
+    //TODO : Provide a better fill function
     var fillFunction = function(factor) {
         var fill;
 
