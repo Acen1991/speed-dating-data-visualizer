@@ -26,7 +26,7 @@ module.exports = function(grunt) {
                 },
             }
         },
-        watch:  {
+        watch: {
             jade: {
                 files: ["views/**/*.jade"],
                 tasks: ['jade', 'injector'],

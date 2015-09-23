@@ -10,6 +10,7 @@ angular.module("speed-data-app").factory('Vizualize', ['Utils', function(Utils) 
         var maxNumberOfValues = d3.max([speed_dating_data.attributes_data.m_axis_values.length, speed_dating_data.attributes_data.f_axis_values.length]);
 
         angular.element("#graph").attr("height", maxNumberOfValues * 100 + 100);
+       
         var ym_range = d3.scale.ordinal().domain(speed_dating_data.attributes_data.m_axis_values).rangePoints([0, maxNumberOfValues * 100]);
         //for example to know where is the position of "engineer" on the axis we need to call ym_range.call('scale','engineer')
         var yf_range = d3.scale.ordinal().domain(speed_dating_data.attributes_data.f_axis_values).rangePoints([0, maxNumberOfValues * 100]);
@@ -65,7 +66,7 @@ angular.module("speed-data-app").factory('Vizualize', ['Utils', function(Utils) 
                 allPoints.push(commonPolygonData.borderPoints.topLeftPoint.x + ',' + commonPolygonData.borderPoints.topLeftPoint.y);
                 allPoints.push(thirdTopRightPoint.x + ',' + thirdTopRightPoint.y);
                 allPoints.push(thirdBottomRightPoint.x + ',' + thirdBottomRightPoint.y);
-                allPoints.push(Utils.commonPolygonData.borderPoints.bottomLeftPoint.x + ',' + commonPolygonData.borderPoints.bottomLeftPoint.y);
+                allPoints.push(commonPolygonData.borderPoints.bottomLeftPoint.x + ',' + commonPolygonData.borderPoints.bottomLeftPoint.y);
 
                 return allPoints.join(' ');
             })

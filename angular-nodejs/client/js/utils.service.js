@@ -1,7 +1,6 @@
 angular.module('speed-data-app').factory('Utils', [function() {
     var commonPolygonDataFunc = function(d, ym_range, yf_range, leftSide, rightSide) {
         var ymScaledPosition = ym_range.call('scale', d.m_attribute_value);
-
         var yfScaledPosition = yf_range.call('scale', d.f_attribute_value);
         var m_success_factor = d.m_success_attribute * 25;
         var f_success_factor = d.f_success_attribute * 25;
